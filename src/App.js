@@ -1,11 +1,14 @@
-import logo from "./logo.svg";
 import "./App.css";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-center">Purple Leaf</h1>
-    </div>
+    <>
+      <NavBar />
+      <div>
+        <h1 className="text-center">Purple Leaf</h1>
+      </div>
+    </>
   );
 }
 
