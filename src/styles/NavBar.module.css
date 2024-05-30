@@ -1,0 +1,12 @@
+.NavLink {
+  padding: 5px;
+  text-decoration: none;
+}
+
+.NavColor {
+  color: black;
+}
+
+.Active {
+  color: purple;
+}
