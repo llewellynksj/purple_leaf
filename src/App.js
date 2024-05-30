@@ -1,6 +1,8 @@
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
+import "./services/axiosDefaults";
+import RegisterForm from "./pages/auth/RegisterForm";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -28,10 +30,7 @@ function App() {
             path="/login"
             element={<h1 className="text-center">Login</h1>}
           />
-          <Route
-            path="/register"
-            element={<h1 className="text-center">Register</h1>}
-          />
+          <Route path="/register" element={<RegisterForm />} />
         </Routes>
       </Container>
     </>
