@@ -1,6 +1,7 @@
 .NavLink {
   padding: 5px;
   text-decoration: none;
+  display: flex;
 }
 
 .NavColor {
@@ -9,4 +10,9 @@
 
 .Active {
   color: purple;
+}
+
+.NavToggle {
+  background-color: var(--primary-color);
+  padding: 2px 4px;
 }

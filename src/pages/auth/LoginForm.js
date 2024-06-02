@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRedirect } from "../../hooks/useRedirect";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 // Bootstrap
 import Form from "react-bootstrap/Form";
@@ -12,8 +13,8 @@ import Row from "react-bootstrap/Row";
 import { Button } from "react-bootstrap";
 
 const LoginForm = () => {
+  const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
-
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -24,21 +25,23 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await axios.post("/dj-rest-auth/login/", loginData);
+      setCurrentUser(data.user);
+      navigate("/");
+    } catch (err) {
+      console.log("Error response from server:", err.response?.data);
+      setErrors(err.response?.data || {});
+    }
+  };
+
   const handleChange = (event) => {
     setLoginData({
       ...loginData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post("/dj-rest-auth/login/", loginData);
-      navigate("/");
-    } catch (err) {
-      setErrors(err.response?.data || {});
-    }
   };
 
   return (
