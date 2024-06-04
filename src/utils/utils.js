@@ -18,33 +18,21 @@ export const fetchMoreData = async (resource, setResource) => {
   } catch (err) {}
 };
 
-export const followHelper = (profile, clickedProfile, following_id) => {
-  return profile.id === clickedProfile.id
-    ? {
-        ...profile,
-        followers_count: profile.followers_count + 1,
-        following_id,
-      }
-    : profile.is_owner
-    ? { ...profile, following_count: profile.following_count + 1 }
-    : profile;
-};
-
-export const unfollowHelper = (profile, clickedProfile) => {
-  return profile.id === clickedProfile.id
-    ? {
-        ...profile,
-        followers_count: profile.followers_count - 1,
-        following_id: null,
-      }
-    : profile.is_owner
-    ? { ...profile, following_count: profile.following_count - 1 }
-    : profile;
-};
-
 export const setTokenTimestamp = (data) => {
-  const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
-  localStorage.setItem("refreshTokenTimestamp", refreshTokenTimestamp);
+  try {
+    const token = data.key;
+
+    if (typeof token === "string" && token.split(".").length === 3) {
+      const decodedToken = jwtDecode(token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("tokenTimestamp", decodedToken.exp * 1000);
+      console.log("Token timestamp set successfully:", decodedToken.exp * 1000);
+    } else {
+      throw new Error("Token is not a valid JWT");
+    }
+  } catch (error) {
+    console.error("Error setting token timestamp:", error);
+  }
 };
 
 export const shouldRefreshToken = () => {

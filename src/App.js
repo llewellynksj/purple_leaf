@@ -2,22 +2,20 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
 import "./services/axiosDefaults";
-// import { useCurrentUser } from "./contexts/CurrentUserContext";
 import RegisterForm from "./pages/auth/RegisterForm";
 import LoginForm from "./pages/auth/LoginForm";
+import Home from "./pages/Home";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
 
 function App() {
-  // const currentUser = useCurrentUser();
-
   return (
     <>
       <NavBar />
       <Container>
         <Routes>
-          <Route path="/" element={<h1 className="text-center">Home</h1>} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/about"
             element={<h1 className="text-center">About</h1>}

@@ -30,7 +30,7 @@ const NavBar = () => {
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
   const [isMobile, setIsMobile] = useState(false);
 
-  //Check if the user is on mobile screen size
+  // Check if the user is on mobile screen size
   useEffect(() => {
     // Check the screen width to determine the size is less than lg to match burger menu toggle
     const isMobileDevice = window.innerWidth <= 992;
@@ -78,7 +78,6 @@ const NavBar = () => {
             exact
             to="/"
             className={(navData) => getNavLinkClass(navData, s.NavLink)}
-            activeClassName={s.Active}
           >
             Home
           </NavLink>
@@ -94,13 +93,12 @@ const NavBar = () => {
           <NavLink
             to={`/profiles/${currentUser?.profile_id}`}
             className={(navData) => getNavLinkClass(navData, s.NavLink)}
-            activeClassName={s.Active}
           >
             {isMobile ? (
               <p mobile="true">{currentUser?.username}'s Account</p>
             ) : (
               <Avatar
-                src={currentUser?.profile_image}
+                src={currentUser?.account_image}
                 text={currentUser?.username}
                 height={32}
               />
@@ -131,7 +129,6 @@ const NavBar = () => {
             exact
             to="/"
             className={(navData) => getNavLinkClass(navData, s.NavLink)}
-            activeClassName={s.Active}
           >
             Home
           </NavLink>
@@ -140,14 +137,12 @@ const NavBar = () => {
           <NavLink
             to="/login"
             className={(navData) => getNavLinkClass(navData, s.NavLink)}
-            activeClassName={s.Active}
           >
             Login
           </NavLink>
           <NavLink
             to="/register"
             className={(navData) => getNavLinkClass(navData, s.NavLink)}
-            activeClassName={s.Active}
           >
             Register
           </NavLink>
@@ -160,43 +155,6 @@ const NavBar = () => {
     <Navbar expanded={expanded} expand="lg" className="mb-3">
       <Container>{currentUser ? loggedInNav : loggedOutNav}</Container>
     </Navbar>
-    // <Navbar expand="lg" className="bg-body-tertiary">
-    //   <Container>
-    //     <Navbar.Brand href="#home">Purple Leaf</Navbar.Brand>
-    //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    //     <Navbar.Collapse id="basic-navbar-nav">
-    //       <Nav className="me-auto">
-    //         <NavLink
-    //           className={(navData) => getNavLinkClass(navData, s.NavLink)}
-    //           to="/"
-    //         >
-    //           Home
-    //         </NavLink>
-    //         <NavLink
-    //           className={(navData) => getNavLinkClass(navData, s.NavLink)}
-    //           to="/about"
-    //         >
-    //           About
-    //         </NavLink>
-    //         <NavLink
-    //           className={(navData) => getNavLinkClass(navData, s.NavLink)}
-    //           to="/support"
-    //         >
-    //           Support
-    //         </NavLink>
-    //         <NavLink
-    //           className={(navData) => getNavLinkClass(navData, s.NavLink)}
-    //           to="/contact"
-    //         >
-    //           Contact
-    //         </NavLink>
-    //       </Nav>
-    //       <Nav className="ml-auto">
-    //         {currentUser ? loggedInNav : loggedOutNav}
-    //       </Nav>
-    //     </Navbar.Collapse>
-    //   </Container>
-    // </Navbar>
   );
 };
 

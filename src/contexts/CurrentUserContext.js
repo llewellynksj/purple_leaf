@@ -20,7 +20,10 @@ export const CurrentUserProvider = ({ children }) => {
     try {
       const { data } = await axiosRes.get("dj-rest-auth/user/");
       setCurrentUser(data);
-    } catch (err) {}
+      console.log("Current User Data:", data); // Debugging line
+    } catch (err) {
+      console.error("Failed to fetch user:", err);
+    }
   };
 
   useEffect(() => {
@@ -32,11 +35,13 @@ export const CurrentUserProvider = ({ children }) => {
       async (config) => {
         if (shouldRefreshToken()) {
           try {
-            await axios.post("/dj-rest-auth/token/refresh/");
+            const { data } = await axios.post("/dj-rest-auth/token/refresh/");
+            console.log("Token refreshed:", data); // Debugging line
           } catch (err) {
+            console.error("Failed to refresh token:", err); // Debugging line
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                navigate.push("/signin");
+                navigate("/login");
               }
               return null;
             });
@@ -56,17 +61,19 @@ export const CurrentUserProvider = ({ children }) => {
       async (err) => {
         if (err.response?.status === 401) {
           try {
-            await axios.post("/dj-rest-auth/token/refresh/");
+            const { data } = await axios.post("/dj-rest-auth/token/refresh/");
+            console.log("Token refreshed on 401:", data); // Debugging line
+            return axios(err.config);
           } catch (err) {
+            console.error("Failed to refresh token on 401:", err); // Debugging line
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
-                navigate.push("/signin");
+                navigate("/login");
               }
               return null;
             });
             removeTokenTimestamp();
           }
-          return axios(err.config);
         }
         return Promise.reject(err);
       }

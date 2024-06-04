@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRedirect } from "../../hooks/useRedirect";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+// import { setTokenTimestamp } from "../../utils/utils";
 
 // Bootstrap
 import Form from "react-bootstrap/Form";
@@ -27,13 +28,13 @@ const LoginForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", loginData);
       setCurrentUser(data.user);
       navigate("/");
     } catch (err) {
-      console.log("Error response from server:", err.response?.data);
-      setErrors(err.response?.data || {});
+      setErrors(err.response?.data);
     }
   };
 
